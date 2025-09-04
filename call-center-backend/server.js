@@ -92,7 +92,7 @@ where sea.todo_cd='Call Outbound Communication'
   and sp.postn_type_cd='Софт специалист'
   and sea.created = TO_DATE('2025-09-01', 'YYYY-MM-DD')`
     );
-    // return result.rows;
+    console.log("DB data :", result.rows.length);
 
     const countPerson = [
       ...new Set(result.rows.map((row) => row["Ответственный"])),
