@@ -23,7 +23,6 @@ async function initDb() {
 
 async function getAgents(date) {
   const conn = await pool.getConnection();
-  console.log("Fetching agents for date:", date);
   try {
     const result = await conn.execute(
       `Select spca.addr as "Номер телефона",
@@ -91,9 +90,9 @@ left join siebel.s_contact scC on scC.Row_Id=sea.target_per_id
 
 where sea.todo_cd='Call Outbound Communication'
   and sp.postn_type_cd='Софт специалист'
-  and sea.created = :date`,
-      { date }
+  and sea.created = TO_DATE('2025-09-01', 'YYYY-MM-DD')`
     );
+    // return result.rows;
 
     const countPerson = [
       ...new Set(result.rows.map((row) => row["Ответственный"])),
@@ -148,7 +147,7 @@ where sea.todo_cd='Call Outbound Communication'
 
 app.get("/api/agents", async (req, res) => {
   try {
-    const date = req.params.date || new Date().toISOString().slice(0, 10);
+    const date = req.query.date || new Date().toISOString().slice(0, 10);
     const agents = await getAgents(date);
     res.json(agents);
   } catch (err) {
