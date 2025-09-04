@@ -32,7 +32,7 @@ type SortField =
   | "answerRate"
   | "dailyPlan";
 
-export const EmployeeTable = ({ employees, total }) => {
+export const EmployeeTable = ({ agentsData }) => {
   const [sortField, setSortField] = useState<SortField>("totalCalls");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
@@ -45,7 +45,7 @@ export const EmployeeTable = ({ employees, total }) => {
     }
   };
 
-  const sortedEmployees = [...employees].sort((a, b) => {
+  const sortedEmployees = [...agentsData.rows].sort((a, b) => {
     const aValue = a[sortField];
     const bValue = b[sortField];
 
@@ -112,23 +112,23 @@ export const EmployeeTable = ({ employees, total }) => {
             <TableBody>
               {sortedEmployees.map((employee) => (
                 <TableRow
-                  key={employee.id}
+                  key={employee.Ответственный}
                   className="border-border hover:bg-table-row-hover transition-colors"
                 >
                   <TableCell className="font-medium text-foreground">
-                    {employee.name}
+                    {employee.Ответственный}
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {employee.totalCalls}
+                    {employee?.totalCalls}
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {employee.answeredCalls}
+                    {employee?.answeredCalls}
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {employee.answerRate.toFixed(1)}%
+                    {employee?.answerRate.toFixed(1)}%
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {employee.dailyPlan.toFixed(1)}%
+                    {employee?.dailyPlan.toFixed(1)}%
                   </TableCell>
                 </TableRow>
               ))}
@@ -139,13 +139,13 @@ export const EmployeeTable = ({ employees, total }) => {
                   Jami
                 </TableCell>
                 <TableCell className="text-right font-semibold text-foreground">
-                  {total.countAllPerson}
+                  {agentsData.countAllPerson}
                 </TableCell>
                 <TableCell className="text-right font-semibold text-foreground">
-                  {total.countPersonResponding}
+                  {agentsData.countPersonResponding}
                 </TableCell>
                 <TableCell className="text-right font-semibold text-foreground">
-                  {total.percentPerson.toFixed(1)}%
+                  {agentsData.percentPerson.toFixed(1)}%
                 </TableCell>
                 {/* <TableCell className="text-right font-semibold text-foreground">
                   100%

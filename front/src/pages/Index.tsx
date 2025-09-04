@@ -2,7 +2,7 @@ import { MetricCard } from "@/components/MetricCard";
 import { EmployeeTable } from "@/components/EmployeeTable";
 import { DateFilter } from "@/components/DateFilter";
 import { useEffect, useState } from "react";
-import { getSummary, getAgents } from "../data/api";
+import { getAgents } from "../data/api";
 
 const Index = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
@@ -13,13 +13,17 @@ const Index = () => {
     }
   };
 
-  const [summary, setSummary] = useState(null);
-  const [agents, setAgents] = useState([]);
+  const [agentsData, setAgentsData] = useState({
+    rows: [],
+    countPerson: 0,
+    countAllPerson: 0,
+    countRespondedCalls: 0,
+    percentage: 0,
+  });
 
   useEffect(() => {
-    Promise.all([getSummary(date), getAgents(date)]).then(([s, a]) => {
-      setSummary(s);
-      setAgents(a);
+    Promise.all([getAgents(date)]).then(([a]) => {
+      setAgentsData(a);
     });
   }, [date]);
   return (
@@ -37,24 +41,24 @@ const Index = () => {
 
         {/* Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-          <MetricCard title="Ishdagilar soni" value={summary.countPerson} />
+          <MetricCard title="Ishdagilar soni" value={agentsData.countPerson} />
           <MetricCard
             title="Jami qo'ng'iroqlar soni"
-            value={summary.countAllPerson}
+            value={agentsData.countAllPerson}
           />
           <MetricCard
             title="Ko'tarilgan qo'ng'iroqlar"
-            value={summary.countPersonResponding}
+            value={agentsData.countRespondedCalls}
           />
           <MetricCard
             title="Plan bajarilishi"
-            value={`${summary.percentPerson}%`}
+            value={`${agentsData.percentage}%`}
           />
           <DateFilter onDateChange={handleDateChange} />
         </div>
 
         {/* Employee Performance Table */}
-        <EmployeeTable employees={agents} total={summary} />
+        <EmployeeTable agentsData={agentsData} />
       </div>
     </div>
   );
