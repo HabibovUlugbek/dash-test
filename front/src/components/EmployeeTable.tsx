@@ -125,10 +125,10 @@ export const EmployeeTable = ({ agentsData }) => {
                     {employee?.answeredCalls}
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {employee?.answerRate}%
+                    {(employee?.answerRate * 100).toFixed(1)}%
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {employee?.dailyPlan}%
+                    {(employee?.dailyPlan * 100).toFixed(1)}%
                   </TableCell>
                 </TableRow>
               ))}
@@ -142,14 +142,18 @@ export const EmployeeTable = ({ agentsData }) => {
                   {agentsData.countAllPerson}
                 </TableCell>
                 <TableCell className="text-right font-semibold text-foreground">
-                  {agentsData.countPersonResponding}
+                  {agentsData.countRespondedCalls}
                 </TableCell>
                 <TableCell className="text-right font-semibold text-foreground">
-                  {agentsData.percentPerson.toFixed(1)}%
+                  {(
+                    (agentsData.countRespondedCalls * 100) /
+                    agentsData.countAllPerson
+                  ).toFixed(1)}
+                  %
                 </TableCell>
-                {/* <TableCell className="text-right font-semibold text-foreground">
-                  100%
-                </TableCell> */}
+                <TableCell className="text-right font-semibold text-foreground">
+                  {(agentsData.percentage * 100).toFixed(1)}
+                </TableCell>
               </TableRow>
             </TableFooter>
           </Table>

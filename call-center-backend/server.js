@@ -90,7 +90,7 @@ left join siebel.s_contact scC on scC.Row_Id=sea.target_per_id
 
 where sea.todo_cd='Call Outbound Communication'
   and sp.postn_type_cd='Софт специалист'
-  and sea.created >= TO_DATE('2025-09-01', 'YYYY-MM-DD')`
+  and sea.created = TO_DATE('2025-09-01', 'YYYY-MM-DD')`
     );
     // return result.rows;
 

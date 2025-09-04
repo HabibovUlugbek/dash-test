@@ -57,7 +57,7 @@ const Index = () => {
           />
           <MetricCard
             title="Plan bajarilishi"
-            value={`${agentsData.percentage}%`}
+            value={`${(agentsData.percentage * 100).toFixed(1)}%`}
           />
           <DateFilter onDateChange={handleDateChange} />
         </div>
