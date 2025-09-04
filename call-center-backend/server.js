@@ -91,8 +91,8 @@ left join siebel.s_contact scC on scC.Row_Id=sea.target_per_id
 
 where sea.todo_cd='Call Outbound Communication'
   and sp.postn_type_cd='Софт специалист'
-  and sea.created = TO_DATE(:date, 'YYYY-MM-DD')`,
-      [date]
+  and sea.created = :date`,
+      { date }
     );
 
     const countPerson = [
