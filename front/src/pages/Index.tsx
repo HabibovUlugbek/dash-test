@@ -21,8 +21,8 @@ const Index = () => {
   });
 
   useEffect(() => {
-    const data = getAgents(date);
-    data.then((res) => {
+    getAgents(date).then((res) => {
+      console.log("RES", res.rows.length);
       setAgentsData({ ...res });
     });
   }, [date]);
