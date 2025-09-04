@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getAgents } from "../data/api";
 
 const Index = () => {
+  console.log("Render Index");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const handleDateChange = (date: Date | undefined) => {
     console.log("Date changed:", date);
@@ -28,8 +29,12 @@ const Index = () => {
   // }, [date]);
 
   useEffect(() => {
-    Promise.all([getAgents()]).then(([a]) => {
-      setAgentsData(a);
+    console.log("Start");
+    const date = new Date().toISOString().slice(0, 10);
+    const data = getAgents();
+    data.then((res) => {
+      console.log("RES", res);
+      setAgentsData(res);
     });
   }, []);
   return (
