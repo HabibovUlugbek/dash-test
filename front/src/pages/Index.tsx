@@ -5,10 +5,8 @@ import { useEffect, useState } from "react";
 import { getAgents } from "../data/api";
 
 const Index = () => {
-  console.log("Render Index");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const handleDateChange = (date: Date | undefined) => {
-    console.log("Date changed:", date);
     if (date) {
       setDate(date.toISOString().slice(0, 10));
     }
@@ -23,14 +21,11 @@ const Index = () => {
   });
 
   useEffect(() => {
-    console.log("Start");
-    const date = new Date().toISOString().slice(0, 10);
-    const data = getAgents();
+    const data = getAgents(date);
     data.then((res) => {
-      console.log("RES", res);
       setAgentsData(res);
     });
-  }, []);
+  }, [date]);
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-6 space-y-6">
