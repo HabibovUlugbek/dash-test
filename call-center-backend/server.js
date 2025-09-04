@@ -98,6 +98,12 @@ where sea.todo_cd='Call Outbound Communication'
       ...new Set(result.rows.map((row) => row["Ответственный"])),
     ].length;
 
+    const respondedResults = [
+      "Разговор с 3-м лицом",
+      "Разговор с клиентом",
+      "Разговор с ответственным лицом",
+    ];
+
     const countPersonMap = new Map();
     result.rows.forEach((row) => {
       const agent = row["Ответственный"];
@@ -118,11 +124,6 @@ where sea.todo_cd='Call Outbound Communication'
 
     const countAllPerson = result.rows.length;
 
-    const respondedResults = [
-      "Разговор с 3-м лицом",
-      "Разговор с клиентом",
-      "Разговор с ответственным лицом",
-    ];
     const countRespondedCalls = result.rows.filter((row) =>
       respondedResults.includes(row["Результат"])
     ).length;
