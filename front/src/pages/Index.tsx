@@ -21,11 +21,17 @@ const Index = () => {
     percentage: 0,
   });
 
+  // useEffect(() => {
+  //   Promise.all([getAgents(date)]).then(([a]) => {
+  //     setAgentsData(a);
+  //   });
+  // }, [date]);
+
   useEffect(() => {
-    Promise.all([getAgents(date)]).then(([a]) => {
+    Promise.all([getAgents()]).then(([a]) => {
       setAgentsData(a);
     });
-  }, [date]);
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-6 space-y-6">
