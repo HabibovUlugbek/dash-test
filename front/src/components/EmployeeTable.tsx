@@ -152,7 +152,7 @@ export const EmployeeTable = ({ agentsData }) => {
                   %
                 </TableCell>
                 <TableCell className="text-right font-semibold text-foreground">
-                  {(agentsData.percentage * 100).toFixed(1)}
+                  {(agentsData.percentage * 100).toFixed(1)} %
                 </TableCell>
               </TableRow>
             </TableFooter>
