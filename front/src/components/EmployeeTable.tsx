@@ -125,10 +125,10 @@ export const EmployeeTable = ({ agentsData }) => {
                     {employee?.answeredCalls}
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {(employee?.answerRate * 100).toFixed(1)}%
+                    {employee.answerRate.toFixed(1)}%
                   </TableCell>
                   <TableCell className="text-right text-foreground">
-                    {(employee?.dailyPlan * 100).toFixed(1)}%
+                    {employee.dailyPlan.toFixed(1)}%
                   </TableCell>
                 </TableRow>
               ))}
