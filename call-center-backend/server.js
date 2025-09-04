@@ -92,7 +92,7 @@ left join siebel.s_contact scC on scC.Row_Id=sea.target_per_id
 where sea.todo_cd='Call Outbound Communication'
   and sp.postn_type_cd='Софт специалист'
   and sea.created = TO_DATE(:date, 'YYYY-MM-DD')`,
-      { date: date }
+      [date]
     );
 
     const countPerson = [
@@ -148,7 +148,7 @@ where sea.todo_cd='Call Outbound Communication'
 
 app.get("/api/agents", async (req, res) => {
   try {
-    const date = req.query.date || new Date().toISOString().slice(0, 10);
+    const date = req.params.date || new Date().toISOString().slice(0, 10);
     const agents = await getAgents(date);
     res.json(agents);
   } catch (err) {
