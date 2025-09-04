@@ -22,12 +22,6 @@ const Index = () => {
     percentage: 0,
   });
 
-  // useEffect(() => {
-  //   Promise.all([getAgents(date)]).then(([a]) => {
-  //     setAgentsData(a);
-  //   });
-  // }, [date]);
-
   useEffect(() => {
     console.log("Start");
     const date = new Date().toISOString().slice(0, 10);
