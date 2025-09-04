@@ -98,6 +98,24 @@ where sea.todo_cd='Call Outbound Communication'
       ...new Set(result.rows.map((row) => row["Ответственный"])),
     ].length;
 
+    const countPersonMap = new Map();
+    result.rows.forEach((row) => {
+      const agent = row["Ответственный"];
+      if (!countPersonMap.has(agent)) {
+        countPersonMap.set(agent, { totalCalls: 0, answeredCalls: 0 });
+      }
+      countPersonMap.get(agent).totalCalls += 1;
+      if (respondedResults.includes(row["Результат"])) {
+        countPersonMap.get(agent).answeredCalls += 1;
+      }
+      countPersonMap.get(agent).answerRate =
+        (countPersonMap.get(agent).answeredCalls /
+          countPersonMap.get(agent).totalCalls) *
+        100;
+      countPersonMap.get(agent).dailyPlan =
+        (countPersonMap.get(agent).answeredCalls / 120) * 100;
+    });
+
     const countAllPerson = result.rows.length;
 
     const respondedResults = [
@@ -112,7 +130,10 @@ where sea.todo_cd='Call Outbound Communication'
     const percentage = countRespondedCalls / (countPerson * 120);
 
     return {
-      rows: result.rows,
+      rows: Array.from(countPersonMap, ([Ответственный, data]) => ({
+        Ответственный,
+        ...data,
+      })),
       countPerson,
       countAllPerson,
       countRespondedCalls,
