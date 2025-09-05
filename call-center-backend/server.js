@@ -90,8 +90,7 @@ left join siebel.s_contact scC on scC.Row_Id=sea.target_per_id
 
 where sea.todo_cd='Call Outbound Communication'
   and sp.postn_type_cd='Софт специалист'
-  and TRUNC(sea.created) =TRUNC(:date)`,
-      [date]
+  and TRUNC(sea.created) = DATE ${date}`
     );
     console.log("DB data :", result.rows.length);
 
