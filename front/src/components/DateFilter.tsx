@@ -19,6 +19,7 @@ export function DateFilter({ onDateChange }: DateFilterProps) {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   const handleDateChange = (newDate: Date | undefined) => {
+    console.log("Selected date:", newDate);
     setDate(newDate);
     onDateChange?.(newDate);
   };
