@@ -5,10 +5,18 @@ import { useEffect, useState } from "react";
 import { getAgents } from "../data/api";
 
 const Index = () => {
+  function formatDateLocal(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const handleDateChange = (date: Date | undefined) => {
     if (date) {
-      setDate(date.toISOString().slice(0, 10));
+      const localDate = formatDateLocal(date);
+      setDate(localDate);
     }
   };
 
