@@ -4,7 +4,11 @@ const cors = require("cors");
 const oracledb = require("oracledb");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 
 let pool;
